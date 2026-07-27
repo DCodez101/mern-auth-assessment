@@ -1,0 +1,294 @@
+/* ==========================================================================
+   EMBER TERMINAL — a warm, neo-brutalist dark theme.
+   Deliberately not the generic blue/white SaaS look or a plain black theme:
+   charred-ink background, molten amber/rust accents, thick hard borders,
+   offset "stamped" shadows, monospace + geometric sans pairing.
+   ========================================================================== */
+
+:root {
+  --ink: #17130f;
+  --ink-2: #1f1a14;
+  --panel: #241e17;
+  --paper: #f3e9d8;
+  --amber: #ff8a3d;
+  --amber-2: #ffb066;
+  --rust: #c9502f;
+  --moss: #7a9b57;
+  --danger: #e8544a;
+  --border: #f3e9d8;
+  --shadow: #ff8a3d;
+  --muted: #b9ab95;
+  --radius: 4px;
+  --font-display: 'Sora', system-ui, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255, 138, 61, 0.08), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(201, 80, 47, 0.1), transparent 40%);
+  color: var(--paper);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+a {
+  color: var(--amber-2);
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-bottom: 3px solid var(--border);
+  background: var(--ink-2);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: var(--paper);
+}
+
+.navbar-brand .spark {
+  width: 12px;
+  height: 12px;
+  background: var(--amber);
+  transform: rotate(45deg);
+  box-shadow: 3px 3px 0 var(--rust);
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.navbar-tag {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ---------- Card / panel ---------- */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--panel);
+  border: 3px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: 8px 8px 0 var(--shadow);
+}
+
+.card-wide {
+  max-width: 640px;
+}
+
+.card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber-2);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.card-subtitle {
+  color: var(--muted);
+  font-size: 0.92rem;
+  margin-bottom: 24px;
+}
+
+/* ---------- Forms ---------- */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 12px;
+  background: var(--ink);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 3px 3px 0 var(--amber);
+  transform: translate(-1px, -1px);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 18px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--amber);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--rust);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--rust);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink-2);
+}
+
+.btn-danger {
+  background: var(--danger);
+  box-shadow: 4px 4px 0 #7a231d;
+}
+
+.btn-sm {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 0.78rem;
+}
+
+/* ---------- Alerts ---------- */
+.alert {
+  padding: 10px 14px;
+  border: 2px solid var(--danger);
+  background: rgba(232, 84, 74, 0.12);
+  color: #ffd4cf;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+  font-family: var(--font-mono);
+}
+
+.alert-success {
+  border-color: var(--moss);
+  background: rgba(122, 155, 87, 0.12);
+  color: #d9edc4;
+}
+
+/* ---------- Footer text / links ---------- */
+.form-footer {
+  margin-top: 20px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- Dashboard ---------- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.stat-box {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  background: var(--ink);
+}
+
+.stat-box-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.stat-box-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--amber-2);
+  word-break: break-all;
+}
+
+.loading-text {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  text-align: center;
+  padding: 40px 0;
+}
