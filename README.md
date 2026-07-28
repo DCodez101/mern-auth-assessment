@@ -4,6 +4,17 @@ A full MERN-stack authentication system with short-lived access tokens and
 long-lived, rotating refresh tokens. Built as a plain two-folder project
 (`client` + `server`), no monorepo tooling.
 
+## Live Demo
+
+| | |
+|---|---|
+| **Frontend** | https://mern-auth-assessment-three.vercel.app |
+| **Backend API** | https://mern-auth-assessment-7xcr.onrender.com/api |
+
+> Note: the backend is hosted on Render's free tier, so the first request
+> after a period of inactivity may take 30–50s while the instance spins
+> back up.
+
 ## Architecture
 
 **Stack:** MongoDB (Mongoose) · Express · React (Vite) · JWT
@@ -98,9 +109,12 @@ Runs on `http://localhost:5173`.
 Sign up → land on Dashboard → refresh the page (session persists via the
 refresh cookie) → Logout → cookie cleared, redirected to Login.
 
+You can also skip local setup entirely and try the flow directly on the
+[live demo](https://mern-auth-assessment-three.vercel.app).
+
 ## Environment variables
 
-**`server/.env`**
+**`server/.env`** (local development)
 ```
 PORT=5000
 NODE_ENV=development
@@ -113,9 +127,27 @@ REFRESH_TOKEN_EXPIRY=7d
 REFRESH_TOKEN_EXPIRY_MS=604800000
 ```
 
-**`client/.env`**
+**`server/.env`** (production — Render)
+```
+PORT=5000
+NODE_ENV=production
+MONGO_URI=<Atlas connection string>
+CLIENT_ORIGIN=https://mern-auth-assessment-three.vercel.app
+JWT_ACCESS_SECRET=<random string>
+JWT_REFRESH_SECRET=<a different random string>
+ACCESS_TOKEN_EXPIRY=15m
+REFRESH_TOKEN_EXPIRY=7d
+REFRESH_TOKEN_EXPIRY_MS=604800000
+```
+
+**`client/.env`** (local development)
 ```
 VITE_API_URL=http://localhost:5000/api
+```
+
+**`client/.env`** (production — Vercel)
+```
+VITE_API_URL=https://mern-auth-assessment-7xcr.onrender.com/api
 ```
 
 ## Security notes
@@ -127,7 +159,12 @@ VITE_API_URL=http://localhost:5000/api
   remaining valid until natural expiry.
 - CORS locked to a single explicit origin with `credentials: true`
   (required for the cookie to be sent/accepted; can't be used with a
-  wildcard `*` origin).
+  wildcard `*` origin). In production this origin is the Vercel deployment
+  URL above.
 - Refresh tokens include a random `jti` claim so two tokens issued for the
   same user in the same second are never identical strings (avoids a
   database unique-constraint collision).
+- In production, the refresh cookie is set with `secure: true` and
+  `sameSite: "none"` since the frontend (Vercel) and backend (Render) are
+  on different domains — this requires HTTPS on both ends, which both
+  platforms provide by default.
